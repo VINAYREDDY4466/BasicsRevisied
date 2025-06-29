@@ -4,11 +4,13 @@ import { userContext } from '../context/storeContext';
 const Display = () => {
   const { data } = useContext(userContext);
   const [searchTerm, setSearchTerm] = useState('');
+  const[location, setLocation]=useState("");
   const [lick, setLick] = useState(false);
 
   const filteredData = data.filter(item => {
     const name = item.name || item.random?.name || '';
-    return name.toLowerCase().includes(searchTerm.toLowerCase());
+    const location= item.location || ' ';
+    return name.toLowerCase().includes(searchTerm.toLowerCase()) && location.toLowerCase().includes(location.toLowerCase());
   });
 
   return (
@@ -28,7 +30,9 @@ const Display = () => {
             marginRight: '10px',
             fontSize: '16px'
           }}
+          
         />
+        <input type="location" name="" id="" value={location} onChange={(e)=>setLocation(e.target.value)} />
         <button
           onClick={() => setLick(true)}
           style={{
@@ -71,6 +75,7 @@ const Display = () => {
                 alt="Random"
                 style={{ width: '100%', borderRadius: '4px', marginBottom: '10px' }}
               />
+              <p>{item.location}</p>
               <p>Price: {item.price || 'Not available'}</p>
               <p>Rating: {item.rating || 'N/A'}</p>
             </div>

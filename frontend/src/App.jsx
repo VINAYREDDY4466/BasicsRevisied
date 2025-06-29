@@ -5,6 +5,7 @@ import Login from './components/login';
 import Home from './pages/Home';
 import PrivateRoute from './utils/PrivateRoute';
 import Upload from './pages/Upload';
+import Debounce from './pages/Debounce';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path='/signup' element={<Signup />} />
           <Route path='/' element={<Home />} />
           <Route path='/upload' element={<Upload/>}/>
+          <Route path='/debounce' element={<Debounce/>}/>
           <Route path='/dashboard'
              element ={<PrivateRoute><h1>Im a private route</h1></PrivateRoute>}
           >

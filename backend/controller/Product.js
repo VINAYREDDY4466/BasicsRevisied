@@ -5,7 +5,7 @@ import productModel from "../models/product.js";
 const upload= async(req,res)=>{
     try {
          const {name, location, price, rating }= req.body;
-         const newProduct= await productModel.create({
+         const newProduct= new productModel({
             name,
             location,
             price,
@@ -40,12 +40,21 @@ const updateById= async(req, res)=>{
 }
 const deletebyId= async(req, res)=>{
     try {
-        const id= req.params.id;
-        const deletedProduct= await productModel.findByIdAndDelete(id);
-        deletedProduct.save();
+        const{name}= req.body;
+        const deletedProduct= await productModel.deleteOne({name:name});
+         
      res.status(200).json({success:true})   
     } catch (error) {
         res.status(400).json({message:error.message})
     }
 }
-export {upload, getProducts, updateById, deletebyId};
+const getProductsByratinggreaterthan20= async(req, res)=>{
+    try {
+        const {name} = req.body;
+        const products= await productModel.updateMany({name:'reddy'}, {$set:{rating:12}}, {$set:{location:"NEW Delhi"}})
+        res.json(products);
+    } catch (error) {
+        res.status(400).json({message:error.message})
+    }
+}
+export {upload, getProducts, updateById, deletebyId, getProductsByratinggreaterthan20};
